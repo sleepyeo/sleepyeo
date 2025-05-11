@@ -1,1 +1,98 @@
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+-- Create the Window
+local Window = Rayfield:CreateWindow({
+   Name = "sleeps",
+   Icon = 0,
+   LoadingTitle = "nexity",
+   LoadingSubtitle = "sleepyeo",
+   Theme = "Amethyst",
+
+   DisableRayfieldPrompts = false,
+   DisableBuildWarnings = false,
+
+   ConfigurationSaving = {
+      Enabled = true,
+      FolderName = nil,
+      FileName = "Big Hub"
+   },
+
+   Discord = {
+      Enabled = false,
+      Invite = "G8FKFNtvYW",
+      RememberJoins = true
+   },
+
+   KeySystem = true,
+   KeySettings = {
+      Title = "Tha Bronx 3(key)",
+      Subtitle = "get key",
+      Note = "get key",
+      FileName = "sleepys key",
+      SaveKey = false,
+      GrabKeyFromSite = false,
+      Key = {"sl33p"}
+   }
+})
+
+local TB3Tab = Window:CreateTab("TB3", nil)
+local tb3Section = TB3Tab:CreateSection("nig")
+
+-- Button to load the script and close the GUI
+TB3Tab:CreateButton({
+   Name = "CLICK TO LOAD THE BEST TB3 SCRIPT",
+   Callback = function()
+      -- Load and execute the external script
+      local url = "https://raw.githubusercontent.com/NexityX/Tha-bronx-3/refs/heads/main/Script"
+      local success, result = pcall(function()
+         local scriptCode = game:HttpGet(url)
+         loadstring(scriptCode)()
+      end)
+
+      -- Notify success or failure
+      if success then
+         Rayfield:Notify({
+            Title = "Injected!",
+            Content = "Script was successfully loaded.",
+            Duration = 5
+         })
+      else
+         Rayfield:Notify({
+            Title = "Error",
+            Content = "Failed to load script: " .. tostring(result),
+            Duration = 5
+         })
+      end
+
+      -- Destroy the Rayfield GUI directly
+      if Rayfield and Rayfield.Destroy then
+         -- Call the method to destroy the GUI if it exists
+         Rayfield:Destroy()
+         print("Rayfield GUI destroyed.")
+      else
+         -- Fallback to searching for ScreenGui
+         local playerGui = game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui")
+         for _, gui in pairs(playerGui:GetChildren()) do
+            if gui:IsA("ScreenGui") then
+               -- Check if this ScreenGui is Rayfield
+               if gui.Name:match("Rayfield") then
+                  gui:Destroy()  -- Destroy the GUI
+                  print("Rayfield GUI destroyed.")
+                  break
+               end
+            end
+         end
+      end
+   end
+})
+
+-- Notification that the script is executed
+Rayfield:Notify({
+   Title = "Executed!",
+   Content = "sleepyeo",
+   Duration = 10,
+   Image = nil,
+})
+
+
 
